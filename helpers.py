@@ -9,10 +9,10 @@ from models import User
 def token_required(our_flask_function):
     @wraps(our_flask_function)
     def decorated(*args, **kwargs):
-        taken = None
+        token = None
 
         if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token'].split('')[1]
+            token = request.headers['x-access-token'].split(' ')[1]
         if not token:
             return jsonify({'message': 'token is missing'}), 401
         try:
