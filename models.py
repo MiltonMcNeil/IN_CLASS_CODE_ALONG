@@ -49,30 +49,32 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'User {self.email} has been added to the database'
 
-class Contact(db.Model):
-    id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String(150), nullable = False)
-    email = db.Column(db.String(200))
-    phone_number = db.Column(db.String(20))
-    address = db.Column(db.String(200))
+class Whisky(db.Model):
+    id = db.Column(db.String, primary_key = True)
+    brand = db.Column(db.String(150), nullable = False)
+    proof = db.Column(db.String(200))
+    aged = db.Column(db.String(20))
+    grain = db.Column(db.String(200))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, name, email, phone_number, address, user_token, id=''):
+    def __init__(self,brand,proof,aged,grain,user_token, id = ''):
         self.id = self.set_id()
-        self.name = name
-        self.email = email
-        self.phone_number = phone_number
+        self.brand = brand
+        self.proof = proof
+        self.aged = aged
+        self.grain = grain
         self.user_token = user_token
 
+
     def __repr__(self):
-        return f'The following contact has been added to the phonebook: {self.name}'
-    
+        return f'Whisky has been added to your Inventory.: {self.brand}'
+
     def set_id(self):
         return (secrets.token_urlsafe())
-    
-class ContactSchema(ma.Schema):
-    class Meta:
-        fields = ['id', 'name', 'email', 'phone_number', 'address']
 
-contact_schema = ContactSchema()
-contacts_schema = ContactSchema(many=True)
+class WhiskySchema(ma.Schema):
+    class Meta:
+        fields = ['id', 'brand','proof','aged', 'grain']
+
+Whisky_schema = WhiskySchema()
+Whiskys_schema = WhiskySchema(many=True)
