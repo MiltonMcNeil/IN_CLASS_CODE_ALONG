@@ -26,6 +26,7 @@ class User(db.Model, UserMixin):
     g_auth_verify = db.Column(db.Boolean, default=False)
     token = db.Column(db.String, default='', unique=True)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    whisky = db.relationship("Whisky",backref="owner",lazy=True)
 
     def __init__(self, email, first_name='', last_name='', password='', token='', g_auth_verify=False):
         self.id = self.set_id()
@@ -78,3 +79,31 @@ class WhiskySchema(ma.Schema):
 
 Whisky_schema = WhiskySchema()
 Whiskys_schema = WhiskySchema(many=True)
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
